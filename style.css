@@ -1,48 +1,104 @@
-body {
-    font-family: Arial, sans-serif;
+/* ===== RESET & BASE ===== */
+* {
     margin: 0;
     padding: 0;
-    background: #f0f2f5;
-    color: #333;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
     text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
+/* ===== HEADER ===== */
 header {
-    background: #4CAF50;
-    color: white;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
     padding: 1rem;
+    box-shadow: 0 0 20px rgba(0, 255, 128, 0.3);
 }
 
+header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+    color: #00ff99;
+    text-shadow: 0 0 10px #00ff99;
+}
+
+header p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* ===== MAIN CONTENT ===== */
 main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 2rem;
+    gap: 1rem;
 }
 
 input[type="file"],
 input[type="password"] {
-    display: block;
-    margin: 1rem auto;
-    padding: 0.5rem;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
     font-size: 1rem;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
 }
 
 button {
-    background: #4CAF50;
+    background: linear-gradient(45deg, #00ff99, #00b3ff);
     border: none;
-    color: white;
-    padding: 0.7rem 1.5rem;
-    margin: 0.5rem;
+    padding: 0.8rem 1.5rem;
     font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 5px;
+    color: #000;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 button:hover {
-    background: #45a049;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 255, 153, 0.8);
 }
 
+#status {
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #00ffcc;
+    text-shadow: 0 0 10px #00ffcc;
+}
+
+/* ===== FOOTER ===== */
 footer {
-    margin-top: 2rem;
     padding: 1rem;
-    background: #222;
-    color: white;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
 }

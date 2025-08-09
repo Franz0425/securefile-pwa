@@ -1,0 +1,9 @@
+{
+    "name": "Secure File Encryption",
+    "short_name": "Encryptor",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#4CAF50",
+    "theme_color": "#4CAF50",
+    "icons": []
+}

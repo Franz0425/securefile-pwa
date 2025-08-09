@@ -1,33 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#4CAF50">
-    <title>Secure File Encryption</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Photo Enhancer</title>
+<style>
+    body { background:#121212; color:white; font-family:Arial, sans-serif; text-align:center; margin:0; }
+    header { padding:20px; font-size:1.8em; background:#1f1f1f; border-bottom:1px solid #333; }
+    .container { padding:30px; }
+    input[type="file"] { display:none; }
+    label { background:#ff4b2b; padding:12px 25px; border-radius:6px; cursor:pointer; font-size:1em; margin-bottom:20px; display:inline-block; }
+    label:hover { background:#ff3a1a; }
+    img { margin-top:20px; max-width:100%; border-radius:8px; }
+    button { background:#007bff; padding:10px 20px; border:none; border-radius:6px; color:white; font-size:1em; cursor:pointer; margin-top:15px; }
+    button:hover { background:#0056b3; }
+    .loading { margin-top:20px; font-style:italic; color:#bbb; }
+</style>
 </head>
 <body>
-    <header>
-        <h1>🔐 Secure File Encryption</h1>
-        <p>Encrypt and decrypt files directly in your browser. 100% offline.</p>
-    </header>
+<header>AI Photo Enhancer</header>
+<div class="container">
+    <label for="imageUpload">Upload Photo</label>
+    <input type="file" id="imageUpload" accept="image/*">
+    <div id="status"></div>
+    <img id="preview" style="display:none;">
+    <br>
+    <a id="downloadLink" style="display:none;" download="enhanced-photo.jpg">
+        <button>Download Enhanced Photo</button>
+    </a>
+</div>
 
-    <main>
-        <input type="file" id="fileInput">
-        <input type="password" id="password" placeholder="Enter password">
-        <div class="buttons">
-            <button onclick="encryptFile()">Encrypt</button>
-            <button onclick="decryptFile()">Decrypt</button>
-        </div>
-        <p id="status"></p>
-    </main>
+<script>
+document.getElementById("imageUpload").addEventListener("change", async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
 
-    <footer>
-        <p>© 2025 Franz Joshua Magdapat</p>
-    </footer>
+    document.getElementById("status").innerHTML = "<p class='loading'>Enhancing photo... Please wait.</p>";
+    document.getElementById("preview").style.display = "none";
+    document.getElementById("downloadLink").style.display = "none";
 
-    <script src="script.js"></script>
+    const base64Image = await toBase64(file);
+
+    const response = await fetch("https://YOUR-VERCEL-PROJECT.vercel.app/api/enhance", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image: base64Image })
+    });
+
+    const data = await response.json();
+
+    if (data.status === "succeeded") {
+        document.getElementById("status").innerHTML = "✅ Enhancement complete!";
+        document.getElementById("preview").src = data.output;
+        document.getElementById("preview").style.display = "block";
+        document.getElementById("downloadLink").href = data.output;
+        document.getElementById("downloadLink").style.display = "inline-block";
+    } else {
+        document.getElementById("status").innerHTML = "❌ Error enhancing photo.";
+    }
+});
+
+function toBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
+</script>
 </body>
 </html>

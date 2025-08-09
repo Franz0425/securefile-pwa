@@ -1,0 +1,12 @@
+# Ignore macOS/iOS junk
+.DS_Store
+
+# Ignore node modules (if used in future)
+node_modules/
+
+# Ignore build artifacts
+dist/
+build/
+
+# Ignore logs
+*.log
